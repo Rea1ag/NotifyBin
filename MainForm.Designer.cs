@@ -45,6 +45,9 @@ namespace NotifyBin
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timer = new System.Windows.Forms.Timer(this.components);
+			this.DoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
+			this.openDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -54,6 +57,7 @@ namespace NotifyBin
 			this.notify.Icon = ((System.Drawing.Icon)(resources.GetObject("notify.Icon")));
 			this.notify.Text = "notify";
 			this.notify.Visible = true;
+			this.notify.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notify_MouseDoubleClick);
 			// 
 			// contextMenu
 			// 
@@ -90,6 +94,7 @@ namespace NotifyBin
 			// 
 			this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.autostartToolStripMenuItem,
+            this.DoubleClickAction,
             this.toolStripSeparator3,
             this.aboutToolStripMenuItem});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
@@ -102,7 +107,7 @@ namespace NotifyBin
             this.onToolStripMenuItem,
             this.offToolStripMenuItem});
 			this.autostartToolStripMenuItem.Name = "autostartToolStripMenuItem";
-			this.autostartToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.autostartToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
 			this.autostartToolStripMenuItem.Text = "Autostart";
 			// 
 			// onToolStripMenuItem
@@ -122,12 +127,12 @@ namespace NotifyBin
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(120, 6);
+			this.toolStripSeparator3.Size = new System.Drawing.Size(204, 6);
 			// 
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
@@ -146,8 +151,32 @@ namespace NotifyBin
 			// 
 			// timer
 			// 
-			this.timer.Interval = 1000;
 			this.timer.Tick += new System.EventHandler(this.timer_Tick);
+			// 
+			// DoubleClickAction
+			// 
+			this.DoubleClickAction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openDoubleClickAction,
+            this.clearDoubleClickAction});
+			this.DoubleClickAction.Name = "DoubleClickAction";
+			this.DoubleClickAction.Size = new System.Drawing.Size(207, 22);
+			this.DoubleClickAction.Text = "Icon Double-Click Action";
+			// 
+			// openDoubleClickAction
+			// 
+			this.openDoubleClickAction.Checked = true;
+			this.openDoubleClickAction.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.openDoubleClickAction.Name = "openDoubleClickAction";
+			this.openDoubleClickAction.Size = new System.Drawing.Size(180, 22);
+			this.openDoubleClickAction.Text = "Open";
+			this.openDoubleClickAction.Click += new System.EventHandler(this.openDoubleClickAction_Click);
+			// 
+			// clearDoubleClickAction
+			// 
+			this.clearDoubleClickAction.Name = "clearDoubleClickAction";
+			this.clearDoubleClickAction.Size = new System.Drawing.Size(180, 22);
+			this.clearDoubleClickAction.Text = "Clear";
+			this.clearDoubleClickAction.Click += new System.EventHandler(this.clearDoubleClickAction_Click);
 			// 
 			// MainForm
 			// 
@@ -184,6 +213,9 @@ namespace NotifyBin
 		private System.Windows.Forms.Timer timer;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem DoubleClickAction;
+		private System.Windows.Forms.ToolStripMenuItem openDoubleClickAction;
+		private System.Windows.Forms.ToolStripMenuItem clearDoubleClickAction;
 	}
 }
 

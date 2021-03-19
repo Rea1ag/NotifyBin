@@ -38,11 +38,18 @@ namespace NotifyBin
 			{
 				uint IsSuccess = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHRB_NOCONFIRMATION);//Очистка корзины
 				GetNotifyData();
-				MessageBox.Show("Корзина успешно очищена!", "Очистка корзины", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				notify.BalloonTipTitle = "Notify Bin";
+				notify.BalloonTipText = "Recycle Bin is successfully cleared!";
+				notify.BalloonTipIcon = ToolTipIcon.Info;
+				notify.ShowBalloonTip(1000);
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show("Ошибка: Корзина не была очищенна" + ex.Message, "Очистка корзины", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+				notify.BalloonTipTitle = "Notify Bin";
+				notify.BalloonTipText = "Recycle Bin has not been cleared!";
+				notify.BalloonTipIcon = ToolTipIcon.Error;
+				notify.ShowBalloonTip(1000);
+				
 			}
 		}
 		//Открываем папку корзины
@@ -50,7 +57,6 @@ namespace NotifyBin
 		{
 			Process.Start("explorer", "shell:RecycleBinFolder"); // Открыть корзину
 		}
-
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			//Делаем запись в реестр и сразу проверяем
@@ -67,6 +73,25 @@ namespace NotifyBin
 			}
 			GetNotifyData();
 			timer.Start();
+			try
+			{
+				var k = key.GetValue("DoubleClickAction");
+				switch (k)
+				{
+					case "Open":
+						openDoubleClickAction.Checked = true;
+						clearDoubleClickAction.Checked = false;
+						break;
+					case "Clear":
+						openDoubleClickAction.Checked = false;
+						clearDoubleClickAction.Checked = true;
+						break;
+				}
+			}
+			catch
+			{
+				key.SetValue("DoubleClickAction", "Open");
+			}
 		}
 		//Раз в минуту обновляем, информацию о корзине
 		private void timer_Tick(object sender, EventArgs e)
@@ -84,12 +109,6 @@ namespace NotifyBin
 			notify.Icon = Resources.OkIcon;
 			}
 			else { notify.Icon = Resources.NotOkIcon; }
-		}
-		//Закрыть программму
-		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Dispose();
-			Application.Exit();
 		}
 		//Включить автозапуск при старте Windows
 		private void onToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,11 +142,43 @@ namespace NotifyBin
 			onToolStripMenuItem.Checked = false;
 			offToolStripMenuItem.Checked = true;
 		}
+		//Действие при двойном клике по иконке
+		private void notify_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			if (key.GetValue("DoubleClickAction").ToString() == "Open")
+			{
+				Process.Start("explorer", "shell:RecycleBinFolder");
+
+			}
+			else
+			{
+				clearToolStripMenuItem_Click(null, null);
+			}
+		}
+		//Очистить - Действие при двойном клике по иконке
+		private void clearDoubleClickAction_Click(object sender, EventArgs e)
+		{
+			key.SetValue("DoubleClickAction", "Clear");
+			clearDoubleClickAction.Checked = true;
+			openDoubleClickAction.Checked = false;
+		}
+		//Открыть - Действие при двойном клике по иконке
+		private void openDoubleClickAction_Click(object sender, EventArgs e)
+		{
+			key.SetValue("DoubleClickAction", "Open");
+			clearDoubleClickAction.Checked = false;
+			openDoubleClickAction.Checked = true;
+		}
 		//О программе
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MessageBox.Show("Программа для очистки корзины. ", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
-
+		//Закрыть программму
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Dispose();
+			Application.Exit();
+		}
 	}
 }
