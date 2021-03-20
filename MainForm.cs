@@ -16,7 +16,10 @@ namespace NotifyBin
 {
 	public partial class MainForm : Form
 	{
-		Microsoft.Win32.RegistryKey myKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+		//Автозапуск приложения
+		readonly RegistryKey myKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+		//Папка в реестре где хранятся параметры программы
+		readonly RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\NotifyBin");
 		enum RecycleFlags : uint
 		{
 			SHRB_NOCONFIRMATION = 0x00000001, // Don't ask confirmation
@@ -30,7 +33,17 @@ namespace NotifyBin
 		{
 			InitializeComponent();
 		}
-		RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\NotifyBin");
+
+		//Не показывать программу в Alt-tab
+		protected override CreateParams CreateParams
+		{
+			get
+			{
+				CreateParams pm = base.CreateParams;
+				pm.ExStyle |= 0x80;
+				return pm;
+			}
+		}
 		//Очистка корзины
 		private void clearToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -73,6 +86,7 @@ namespace NotifyBin
 			}
 			GetNotifyData();
 			timer.Start();
+
 			try
 			{
 				var k = key.GetValue("DoubleClickAction");
@@ -85,6 +99,11 @@ namespace NotifyBin
 					case "Clear":
 						openDoubleClickAction.Checked = false;
 						clearDoubleClickAction.Checked = true;
+						break;
+					default:
+						key.SetValue("DoubleClickAction", "Open");
+						openDoubleClickAction.Checked = true;
+						clearDoubleClickAction.Checked = false;
 						break;
 				}
 			}
@@ -172,7 +191,7 @@ namespace NotifyBin
 		//О программе
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Программа для очистки корзины. ", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			MessageBox.Show("Notify Bin v1.00\nRecycle bin for your Microsoft Windows system tray area. \n © 2021 by Realag \n github.com/Realags/NotifyBin ", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 		//Закрыть программму
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -180,5 +199,6 @@ namespace NotifyBin
 			Dispose();
 			Application.Exit();
 		}
+
 	}
 }

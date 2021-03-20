@@ -113,14 +113,14 @@ namespace NotifyBin
 			// onToolStripMenuItem
 			// 
 			this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-			this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+			this.onToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.onToolStripMenuItem.Text = "On";
 			this.onToolStripMenuItem.Click += new System.EventHandler(this.onToolStripMenuItem_Click);
 			// 
 			// offToolStripMenuItem
 			// 
 			this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-			this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+			this.offToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.offToolStripMenuItem.Text = "Off";
 			this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
 			// 

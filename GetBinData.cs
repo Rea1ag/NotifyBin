@@ -14,7 +14,9 @@ namespace NotifyBin
 		public string _file_size;
 		public string _num_items;
 		public bool cleanstatus;
-		
+
+
+
 		// Создает структуру, которая будет хранить информацию повторного запроса. 
 		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode, Pack = 1)]
 		public struct SHQUERYRBINFO
@@ -31,26 +33,26 @@ namespace NotifyBin
 			SHQUERYRBINFO bb_Query = new SHQUERYRBINFO();
 			bb_Query.cbSize = Marshal.SizeOf(bb_Query.GetType());
 			SHQueryRecycleBin(null, ref bb_Query);
-			
-			if(bb_Query.i64Size == 0)
+			//Смена иконки если корзина пуста.
+			if (bb_Query.i64Size == 0)
 			{ 
-				cleanstatus = true; //Смена иконки если корзина пуста.
+				cleanstatus = true; //Состояние корзины пуста или нет.
 			}
-			_cb_size = "CB Size  :  " + bb_Query.cbSize;// хз шо це
+			_cb_size = "CB Size  :  " + bb_Query.cbSize;
 			//Вызов элемента структуры i64NumItems, который вернет номер файла в корзине.
-			_num_items = bb_Query.i64NumItems + " файлов.";
+			_num_items = bb_Query.i64NumItems + " files";
 			//Вызов элемента структуры i64Size, который вернет размер корзины.
-			_file_size = bb_Query.i64Size + " байт";  
+			_file_size = bb_Query.i64Size + " byte";  
 			if (bb_Query.i64Size >= 1024)
 			{
-				_file_size = bb_Query.i64Size / 1024 + " КБ";
+				_file_size = bb_Query.i64Size / 1024 + " KB";
 				if (bb_Query.i64Size >= 1048576)
 				{
-					_file_size = bb_Query.i64Size / 1048576 + " МБ";
+					_file_size = bb_Query.i64Size / 1048576 + " MB";
 					if (bb_Query.i64Size >= 1073741824)
 					{
 						string sizeGB = (Convert.ToDouble(bb_Query.i64Size) / 1073741824).ToString();
-						_file_size = sizeGB.Substring(0, sizeGB.IndexOf(",") + 3) + " ГБ"; // Для дробного представления ГБ (1,65)
+						_file_size = sizeGB.Substring(0, sizeGB.IndexOf(",") + 3) + " GB"; // Для дробного представления ГБ (1,65)
 					}
 				}
 			}
