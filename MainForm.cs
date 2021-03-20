@@ -1,15 +1,8 @@
 ﻿using Microsoft.Win32;
 using NotifyBin.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NotifyBin
@@ -33,17 +26,22 @@ namespace NotifyBin
 		{
 			InitializeComponent();
 		}
+		//Начало - Не показывать программу в Alt-tab
+		[DllImport("user32.dll")]
+		private static extern int SetWindowLong(IntPtr window, int index, int value);
 
-		//Не показывать программу в Alt-tab
-		protected override CreateParams CreateParams
+		[DllImport("user32.dll")]
+		private static extern int GetWindowLong(IntPtr window, int index);
+
+		private const int GWL_EXSTYLE = -20;
+		private const int WS_EX_TOOLWINDOW = 0x00000080;
+
+		public static void HideFromAltTab(IntPtr Handle)
 		{
-			get
-			{
-				CreateParams pm = base.CreateParams;
-				pm.ExStyle |= 0x80;
-				return pm;
-			}
+			SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle,
+				GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
 		}
+		//Конец - Не показывать программу в Alt-tab
 		//Очистка корзины
 		private void clearToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -62,7 +60,7 @@ namespace NotifyBin
 				notify.BalloonTipText = "Recycle Bin has not been cleared!";
 				notify.BalloonTipIcon = ToolTipIcon.Error;
 				notify.ShowBalloonTip(1000);
-				
+
 			}
 		}
 		//Открываем папку корзины
@@ -86,7 +84,8 @@ namespace NotifyBin
 			}
 			GetNotifyData();
 			timer.Start();
-
+			//Узнаем действие на дабл клик по иконке из реестра, если в реестре пусто создаем.
+			//По умолчанию действие Открыть корзину
 			try
 			{
 				var k = key.GetValue("DoubleClickAction");
@@ -111,6 +110,7 @@ namespace NotifyBin
 			{
 				key.SetValue("DoubleClickAction", "Open");
 			}
+			HideFromAltTab(this.Handle);//Запуск метода который скрывает программу из alt-tab
 		}
 		//Раз в минуту обновляем, информацию о корзине
 		private void timer_Tick(object sender, EventArgs e)
@@ -120,14 +120,57 @@ namespace NotifyBin
 		//Размер и количество файлов при наведении на значек в строке уведомлений
 		private void GetNotifyData()
 		{
-			GetBinData sizebin = new GetBinData();
-			sizebin.GetSize();
-			notify.Text = "Notify Bin v1.00\n\n" + sizebin._num_items + "\n" + sizebin._file_size;
-			if(sizebin.cleanstatus == true)
+			GetBinData databin = new GetBinData();
+			//Сколько сейчас данных в корзине
+			databin.GetSize();
+			notify.Text = "Notify Bin v1.00\n\n" + databin._num_items + "\n" + databin._file_size;
+			//Сколько всего данных в корзине
+			double sum = databin.GetMaxSize();
+			int iconpersent = 0;
+			if (databin._file_sizeMB >= ((sum / 100) * 75) || databin._file_sizeMB <= ((sum / 100) * 75))
 			{
-			notify.Icon = Resources.OkIcon;
+				iconpersent = 75;
+				if (databin._file_sizeMB <= ((sum / 100) * 50))
+				{
+					iconpersent = 50;
+					if (databin._file_sizeMB <= ((sum / 100) * 25))
+					{
+						iconpersent = 25;
+
+						if (databin._file_sizeMB == 0)
+						{
+							iconpersent = 0;
+						}
+
+					}
+				}
 			}
-			else { notify.Icon = Resources.NotOkIcon; }
+			if (databin._file_sizeMB >= ((sum / 100) * 99))
+			{
+				iconpersent = 100;
+			}
+
+			switch (iconpersent)
+			{
+				case 0:
+					notify.Icon = Resources.OkIcon;//Иконка OK
+					break;
+				case 25:
+					notify.Icon = Resources.NotIcon25;//Иконка 25%
+					break;
+				case 50:
+					notify.Icon = Resources.NotIcon50;//Иконка 50%
+					break;
+				case 75:
+					notify.Icon = Resources.NotIcon75;//Иконка 75%
+					break;
+				case 100:
+					notify.Icon = Resources.NotIcon100;//Иконка 100%
+					break;
+				default:
+					notify.Icon = Resources.DefaultIcon;
+					break;
+			}
 		}
 		//Включить автозапуск при старте Windows
 		private void onToolStripMenuItem_Click(object sender, EventArgs e)

@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32;
 
 namespace NotifyBin
 {
@@ -12,6 +13,7 @@ namespace NotifyBin
 	{
 		public string _cb_size;
 		public string _file_size;
+		public int _file_sizeMB;
 		public string _num_items;
 		public bool cleanstatus;
 
@@ -28,16 +30,12 @@ namespace NotifyBin
 		// Вызов метода SHQueryRecycleBin () библиотеки shell32 для запроса размера файла и номера файла в корзине.
 		[DllImport("shell32.dll", CharSet = CharSet.Unicode)]
 		public static extern int SHQueryRecycleBin([MarshalAs(UnmanagedType.LPTStr)]String pszRootPath,ref SHQUERYRBINFO pSHQueryRBInfo);
+		//Сколько сейчас данных в корзине
 		public void GetSize()
 		{
 			SHQUERYRBINFO bb_Query = new SHQUERYRBINFO();
 			bb_Query.cbSize = Marshal.SizeOf(bb_Query.GetType());
 			SHQueryRecycleBin(null, ref bb_Query);
-			//Смена иконки если корзина пуста.
-			if (bb_Query.i64Size == 0)
-			{ 
-				cleanstatus = true; //Состояние корзины пуста или нет.
-			}
 			_cb_size = "CB Size  :  " + bb_Query.cbSize;
 			//Вызов элемента структуры i64NumItems, который вернет номер файла в корзине.
 			_num_items = bb_Query.i64NumItems + " files";
@@ -49,6 +47,7 @@ namespace NotifyBin
 				if (bb_Query.i64Size >= 1048576)
 				{
 					_file_size = bb_Query.i64Size / 1048576 + " MB";
+					_file_sizeMB = Convert.ToInt32(bb_Query.i64Size / 1048576);
 					if (bb_Query.i64Size >= 1073741824)
 					{
 						string sizeGB = (Convert.ToDouble(bb_Query.i64Size) / 1073741824).ToString();
@@ -56,6 +55,24 @@ namespace NotifyBin
 					}
 				}
 			}
+		}
+		//Сколько всего данных в корзине
+		public int GetMaxSize()
+		{
+			string ss = @"Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume";
+			RegistryKey key = Registry.CurrentUser.OpenSubKey(ss);
+			string[] subNames = key.GetSubKeyNames();
+			double sum = 0;
+			foreach (var subName in subNames)
+			{
+				string newpath = @"Software\Microsoft\Windows\CurrentVersion\Explorer\BitBucket\Volume\" + subName;
+				RegistryKey newkey = Registry.CurrentUser.OpenSubKey(newpath);
+				string value = newkey.GetValue("MaxCapacity").ToString();
+				int newvalue = Convert.ToInt32(value);
+				sum += newvalue;
+			}
+
+			return Convert.ToInt32(sum);
 		}
 	}
 }

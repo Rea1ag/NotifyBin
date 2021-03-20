@@ -121,6 +121,30 @@
   <data name="DefaultIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DefaultIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Icon100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon100.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon25.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon50.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon75" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon75.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotIcon100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotIcon100.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotIcon25" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotIcon25.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotIcon50" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotIcon50.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotIcon75" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NotIcon75.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="NotOkIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NotOkIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

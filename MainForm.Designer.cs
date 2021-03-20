@@ -40,14 +40,14 @@ namespace NotifyBin
 			this.autostartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.onToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.DoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
+			this.openDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timer = new System.Windows.Forms.Timer(this.components);
-			this.DoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
-			this.openDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
-			this.clearDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -113,16 +113,41 @@ namespace NotifyBin
 			// onToolStripMenuItem
 			// 
 			this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-			this.onToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
 			this.onToolStripMenuItem.Text = "On";
 			this.onToolStripMenuItem.Click += new System.EventHandler(this.onToolStripMenuItem_Click);
 			// 
 			// offToolStripMenuItem
 			// 
 			this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-			this.offToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
 			this.offToolStripMenuItem.Text = "Off";
 			this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
+			// 
+			// DoubleClickAction
+			// 
+			this.DoubleClickAction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openDoubleClickAction,
+            this.clearDoubleClickAction});
+			this.DoubleClickAction.Name = "DoubleClickAction";
+			this.DoubleClickAction.Size = new System.Drawing.Size(207, 22);
+			this.DoubleClickAction.Text = "Icon Double-Click Action";
+			// 
+			// openDoubleClickAction
+			// 
+			this.openDoubleClickAction.Checked = true;
+			this.openDoubleClickAction.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.openDoubleClickAction.Name = "openDoubleClickAction";
+			this.openDoubleClickAction.Size = new System.Drawing.Size(103, 22);
+			this.openDoubleClickAction.Text = "Open";
+			this.openDoubleClickAction.Click += new System.EventHandler(this.openDoubleClickAction_Click);
+			// 
+			// clearDoubleClickAction
+			// 
+			this.clearDoubleClickAction.Name = "clearDoubleClickAction";
+			this.clearDoubleClickAction.Size = new System.Drawing.Size(103, 22);
+			this.clearDoubleClickAction.Text = "Clear";
+			this.clearDoubleClickAction.Click += new System.EventHandler(this.clearDoubleClickAction_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -151,32 +176,8 @@ namespace NotifyBin
 			// 
 			// timer
 			// 
+			this.timer.Interval = 1500;
 			this.timer.Tick += new System.EventHandler(this.timer_Tick);
-			// 
-			// DoubleClickAction
-			// 
-			this.DoubleClickAction.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openDoubleClickAction,
-            this.clearDoubleClickAction});
-			this.DoubleClickAction.Name = "DoubleClickAction";
-			this.DoubleClickAction.Size = new System.Drawing.Size(207, 22);
-			this.DoubleClickAction.Text = "Icon Double-Click Action";
-			// 
-			// openDoubleClickAction
-			// 
-			this.openDoubleClickAction.Checked = true;
-			this.openDoubleClickAction.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.openDoubleClickAction.Name = "openDoubleClickAction";
-			this.openDoubleClickAction.Size = new System.Drawing.Size(180, 22);
-			this.openDoubleClickAction.Text = "Open";
-			this.openDoubleClickAction.Click += new System.EventHandler(this.openDoubleClickAction_Click);
-			// 
-			// clearDoubleClickAction
-			// 
-			this.clearDoubleClickAction.Name = "clearDoubleClickAction";
-			this.clearDoubleClickAction.Size = new System.Drawing.Size(180, 22);
-			this.clearDoubleClickAction.Text = "Clear";
-			this.clearDoubleClickAction.Click += new System.EventHandler(this.clearDoubleClickAction_Click);
 			// 
 			// MainForm
 			// 

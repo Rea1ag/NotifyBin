@@ -134,5 +134,29 @@
   <ItemGroup>
     <None Include="Resources\NotOkIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon25.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon50.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon75.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icon100.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NotIcon25.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NotIcon100.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NotIcon50.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NotIcon75.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
