@@ -69,26 +69,26 @@ namespace NotifyBin
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(117, 104);
+			this.contextMenu.Size = new System.Drawing.Size(181, 126);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
 			// clearToolStripMenuItem
 			// 
 			this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-			this.clearToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.clearToolStripMenuItem.Text = "Clear";
 			this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
 			// 
 			// settingsToolStripMenuItem
 			// 
@@ -98,7 +98,7 @@ namespace NotifyBin
             this.toolStripSeparator3,
             this.aboutToolStripMenuItem});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.settingsToolStripMenuItem.Text = "Settings";
 			// 
 			// autostartToolStripMenuItem
@@ -113,14 +113,14 @@ namespace NotifyBin
 			// onToolStripMenuItem
 			// 
 			this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-			this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+			this.onToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.onToolStripMenuItem.Text = "On";
 			this.onToolStripMenuItem.Click += new System.EventHandler(this.onToolStripMenuItem_Click);
 			// 
 			// offToolStripMenuItem
 			// 
 			this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-			this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
+			this.offToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.offToolStripMenuItem.Text = "Off";
 			this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
 			// 
@@ -165,12 +165,12 @@ namespace NotifyBin
 			// 
 			this.toolStripSeparator2.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(113, 6);
+			this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 

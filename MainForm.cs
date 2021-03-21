@@ -68,50 +68,20 @@ namespace NotifyBin
 		{
 			Process.Start("explorer", "shell:RecycleBinFolder"); // Открыть корзину
 		}
+
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			//Делаем запись в реестр и сразу проверяем
-			if (Convert.ToInt32(key.GetValue("Autostart")) == 1)
-			{
-				onToolStripMenuItem.Checked = true;
-				offToolStripMenuItem.Checked = false;
-			}
-			else
-			{
-				key.SetValue("Autostart", 0);
-				onToolStripMenuItem.Checked = false;
-				offToolStripMenuItem.Checked = true;
-			}
+			GetLanguage(); //Надо пробовать
+			GetRegistryData();
 			GetNotifyData();
 			timer.Start();
-			//Узнаем действие на дабл клик по иконке из реестра, если в реестре пусто создаем.
-			//По умолчанию действие Открыть корзину
-			try
-			{
-				var k = key.GetValue("DoubleClickAction");
-				switch (k)
-				{
-					case "Open":
-						openDoubleClickAction.Checked = true;
-						clearDoubleClickAction.Checked = false;
-						break;
-					case "Clear":
-						openDoubleClickAction.Checked = false;
-						clearDoubleClickAction.Checked = true;
-						break;
-					default:
-						key.SetValue("DoubleClickAction", "Open");
-						openDoubleClickAction.Checked = true;
-						clearDoubleClickAction.Checked = false;
-						break;
-				}
-			}
-			catch
-			{
-				key.SetValue("DoubleClickAction", "Open");
-			}
 			HideFromAltTab(this.Handle);//Запуск метода который скрывает программу из alt-tab
 		}
+		//Локализация
+		private void GetLanguage()
+		{
+		}
+
 		//Раз в минуту обновляем, информацию о корзине
 		private void timer_Tick(object sender, EventArgs e)
 		{
@@ -170,6 +140,56 @@ namespace NotifyBin
 				default:
 					notify.Icon = Resources.DefaultIcon;
 					break;
+			}
+		}
+		//Все настройки записываються в реестр
+		private void GetRegistryData()
+		{
+			try
+			{
+				var value = key.GetValue("Autostart");
+				switch(value)
+				{
+					case 1:
+						onToolStripMenuItem.Checked = true;
+						offToolStripMenuItem.Checked = false;
+						break;
+					default :
+						key.SetValue("Autostart", 0);
+						onToolStripMenuItem.Checked = false;
+						offToolStripMenuItem.Checked = true;
+						break;
+				}
+			}
+			catch
+			{
+				key.SetValue("Autostart", 0);
+			}
+			//Узнаем действие на дабл клик по иконке из реестра, если в реестре пусто создаем.
+			//По умолчанию действие Открыть корзину
+			try
+			{
+				var value = key.GetValue("DoubleClickAction");
+				switch (value)
+				{
+					case "Open":
+						openDoubleClickAction.Checked = true;
+						clearDoubleClickAction.Checked = false;
+						break;
+					case "Clear":
+						openDoubleClickAction.Checked = false;
+						clearDoubleClickAction.Checked = true;
+						break;
+					default:
+						key.SetValue("DoubleClickAction", "Open");
+						openDoubleClickAction.Checked = true;
+						clearDoubleClickAction.Checked = false;
+						break;
+				}
+			}
+			catch
+			{
+				key.SetValue("DoubleClickAction", "Open");
 			}
 		}
 		//Включить автозапуск при старте Windows
@@ -234,7 +254,7 @@ namespace NotifyBin
 		//О программе
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Notify Bin v1.00\nRecycle bin for your Microsoft Windows system tray area. \n © 2021 by Realag \n github.com/Realags/NotifyBin ", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			MessageBox.Show("Notify Bin v1.10\nRecycle bin for your Microsoft Windows system tray area. \n © 2021 by Realag \n github.com/Realags/NotifyBin ", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
 		}
 		//Закрыть программму
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -242,6 +262,5 @@ namespace NotifyBin
 			Dispose();
 			Application.Exit();
 		}
-
 	}
 }

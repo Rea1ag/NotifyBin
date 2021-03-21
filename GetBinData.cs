@@ -35,6 +35,7 @@ namespace NotifyBin
 		{
 			SHQUERYRBINFO bb_Query = new SHQUERYRBINFO();
 			bb_Query.cbSize = Marshal.SizeOf(bb_Query.GetType());
+
 			SHQueryRecycleBin(null, ref bb_Query);
 			_cb_size = "CB Size  :  " + bb_Query.cbSize;
 			//Вызов элемента структуры i64NumItems, который вернет номер файла в корзине.
