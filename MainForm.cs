@@ -2,6 +2,7 @@
 using NotifyBin.Properties;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -50,14 +51,15 @@ namespace NotifyBin
 				uint IsSuccess = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHRB_NOCONFIRMATION);//Очистка корзины
 				GetNotifyData();
 				notify.BalloonTipTitle = "Notify Bin";
-				notify.BalloonTipText = "Recycle Bin is successfully cleared!";
+				notify.BalloonTipText = Language.Translate("BinClear"); //"Recycle Bin is successfully cleared!";
 				notify.BalloonTipIcon = ToolTipIcon.Info;
 				notify.ShowBalloonTip(1000);
+				
 			}
 			catch (Exception ex)
 			{
 				notify.BalloonTipTitle = "Notify Bin";
-				notify.BalloonTipText = "Recycle Bin has not been cleared!";
+				notify.BalloonTipText = Language.Translate("BinNotClear"); //"Recycle Bin has not been cleared!";
 				notify.BalloonTipIcon = ToolTipIcon.Error;
 				notify.ShowBalloonTip(1000);
 
@@ -75,11 +77,15 @@ namespace NotifyBin
 			GetRegistryData();
 			GetNotifyData();
 			timer.Start();
-			HideFromAltTab(this.Handle);//Запуск метода который скрывает программу из alt-tab
+			HideFromAltTab(this.Handle);//Запуск метода скрывает программу из alt-tab
 		}
+
 		//Локализация
 		private void GetLanguage()
 		{
+			Language.lang = key.GetValue("Language").ToString();
+			LanguageUI();
+
 		}
 
 		//Раз в минуту обновляем, информацию о корзине
@@ -93,7 +99,13 @@ namespace NotifyBin
 			GetBinData databin = new GetBinData();
 			//Сколько сейчас данных в корзине
 			databin.GetSize();
-			notify.Text = "Notify Bin v1.00\n\n" + databin._num_items + "\n" + databin._file_size;
+
+			if (databin._file_sizeMB == 0 && databin._num_itemsMB == 0)
+			{
+			clearToolStripMenuItem.Enabled = false;
+			}
+			else { clearToolStripMenuItem.Enabled = true; }
+			notify.Text = "Notify Bin v1.11\n\n" + databin._num_items + "\n" + databin._file_size;
 			//Сколько всего данных в корзине
 			double sum = databin.GetMaxSize();
 			int iconpersent = 0;
@@ -110,6 +122,10 @@ namespace NotifyBin
 						if (databin._file_sizeMB == 0)
 						{
 							iconpersent = 0;
+							if(databin._num_itemsMB >= 1)
+							{
+								iconpersent = 25;
+							}
 						}
 
 					}
@@ -191,6 +207,31 @@ namespace NotifyBin
 			{
 				key.SetValue("DoubleClickAction", "Open");
 			}
+			//Определяем локализацию
+			try
+			{
+				var value = key.GetValue("Language");
+				switch (value)
+				{
+					case "ENG":
+						englishToolStripMenuItem.Checked = true;
+						russianToolStripMenuItem.Checked = false;
+						break;
+					case "RU":
+						englishToolStripMenuItem.Checked = false;
+						russianToolStripMenuItem.Checked = true;
+						break;
+					default:
+						key.SetValue("Language", "ENG");
+						englishToolStripMenuItem.Checked = true;
+						russianToolStripMenuItem.Checked = false;
+						break;
+				}
+			}
+			catch
+			{
+				key.SetValue("Language", "ENG");
+			}
 		}
 		//Включить автозапуск при старте Windows
 		private void onToolStripMenuItem_Click(object sender, EventArgs e)
@@ -254,7 +295,8 @@ namespace NotifyBin
 		//О программе
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Notify Bin v1.10\nRecycle bin for your Microsoft Windows system tray area. \n © 2021 by Realag \n github.com/Realags/NotifyBin ", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			if (!Application.OpenForms.OfType<About>().Any())
+				new About().Show();
 		}
 		//Закрыть программму
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -262,5 +304,43 @@ namespace NotifyBin
 			Dispose();
 			Application.Exit();
 		}
+
+		private void englishToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Language.lang = "ENG";
+			key.SetValue("Language","ENG");
+			LanguageUI();
+			englishToolStripMenuItem.Checked = true;
+			russianToolStripMenuItem.Checked = false;
+		}
+
+		private void russianToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Language.lang = "RU";
+			key.SetValue("Language", "RU");
+			LanguageUI();
+			englishToolStripMenuItem.Checked = false;
+			russianToolStripMenuItem.Checked = true;
+		}
+		//Интерфейс <-- Языковой словарь 
+		//ENG
+		void LanguageUI()
+		{
+			openToolStripMenuItem.Text = Language.Translate("Open");
+			clearToolStripMenuItem.Text = Language.Translate("Clear");
+			settingsToolStripMenuItem.Text = Language.Translate("Settings");
+			autostartToolStripMenuItem.Text = Language.Translate("Autostart");
+			onToolStripMenuItem.Text = Language.Translate("onAutostart");
+			offToolStripMenuItem.Text = Language.Translate("offAutostart");
+			DoubleClickAction.Text = Language.Translate("IconDblClikAction");
+			openDoubleClickAction.Text = Language.Translate("openIconDblClikAction");
+			clearDoubleClickAction.Text = Language.Translate("clearIconDblClikAction");
+			languageToolStripMenuItem.Text = Language.Translate("Language");
+			englishToolStripMenuItem.Text = Language.Translate("engLanguage");
+			russianToolStripMenuItem.Text = Language.Translate("ruLanguage");
+			aboutToolStripMenuItem.Text = Language.Translate("About");
+			exitToolStripMenuItem.Text = Language.Translate("Exit");
+		}
+
 	}
 }

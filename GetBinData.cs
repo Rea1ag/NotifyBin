@@ -15,7 +15,7 @@ namespace NotifyBin
 		public string _file_size;
 		public int _file_sizeMB;
 		public string _num_items;
-		public bool cleanstatus;
+		public int _num_itemsMB;
 
 
 
@@ -39,20 +39,21 @@ namespace NotifyBin
 			SHQueryRecycleBin(null, ref bb_Query);
 			_cb_size = "CB Size  :  " + bb_Query.cbSize;
 			//Вызов элемента структуры i64NumItems, который вернет номер файла в корзине.
-			_num_items = bb_Query.i64NumItems + " files";
+			_num_items = bb_Query.i64NumItems + Language.Translate("files");
+			_num_itemsMB = Convert.ToInt32(bb_Query.i64NumItems);
 			//Вызов элемента структуры i64Size, который вернет размер корзины.
-			_file_size = bb_Query.i64Size + " byte";  
+			_file_size = bb_Query.i64Size + Language.Translate("byte");  
 			if (bb_Query.i64Size >= 1024)
 			{
-				_file_size = bb_Query.i64Size / 1024 + " KB";
+				_file_size = bb_Query.i64Size / 1024 + Language.Translate("KB");
 				if (bb_Query.i64Size >= 1048576)
 				{
-					_file_size = bb_Query.i64Size / 1048576 + " MB";
+					_file_size = bb_Query.i64Size / 1048576 + Language.Translate("MB");
 					_file_sizeMB = Convert.ToInt32(bb_Query.i64Size / 1048576);
 					if (bb_Query.i64Size >= 1073741824)
 					{
 						string sizeGB = (Convert.ToDouble(bb_Query.i64Size) / 1073741824).ToString();
-						_file_size = sizeGB.Substring(0, sizeGB.IndexOf(",") + 3) + " GB"; // Для дробного представления ГБ (1,65)
+						_file_size = sizeGB.Substring(0, sizeGB.IndexOf(",") + 3) + Language.Translate("GB"); // Для дробного представления ГБ (1,65)
 					}
 				}
 			}

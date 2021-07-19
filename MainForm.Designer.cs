@@ -43,6 +43,9 @@ namespace NotifyBin
 			this.DoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
 			this.openDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearDoubleClickAction = new System.Windows.Forms.ToolStripMenuItem();
+			this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.russianToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -95,6 +98,7 @@ namespace NotifyBin
 			this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.autostartToolStripMenuItem,
             this.DoubleClickAction,
+            this.languageToolStripMenuItem,
             this.toolStripSeparator3,
             this.aboutToolStripMenuItem});
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
@@ -113,14 +117,14 @@ namespace NotifyBin
 			// onToolStripMenuItem
 			// 
 			this.onToolStripMenuItem.Name = "onToolStripMenuItem";
-			this.onToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.onToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
 			this.onToolStripMenuItem.Text = "On";
 			this.onToolStripMenuItem.Click += new System.EventHandler(this.onToolStripMenuItem_Click);
 			// 
 			// offToolStripMenuItem
 			// 
 			this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-			this.offToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.offToolStripMenuItem.Size = new System.Drawing.Size(91, 22);
 			this.offToolStripMenuItem.Text = "Off";
 			this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
 			// 
@@ -148,6 +152,31 @@ namespace NotifyBin
 			this.clearDoubleClickAction.Size = new System.Drawing.Size(103, 22);
 			this.clearDoubleClickAction.Text = "Clear";
 			this.clearDoubleClickAction.Click += new System.EventHandler(this.clearDoubleClickAction_Click);
+			// 
+			// languageToolStripMenuItem
+			// 
+			this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.englishToolStripMenuItem,
+            this.russianToolStripMenuItem});
+			this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+			this.languageToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+			this.languageToolStripMenuItem.Text = "Language";
+			// 
+			// englishToolStripMenuItem
+			// 
+			this.englishToolStripMenuItem.Image = global::NotifyBin.Properties.Resources.united_states_flag;
+			this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
+			this.englishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.englishToolStripMenuItem.Text = "English";
+			this.englishToolStripMenuItem.Click += new System.EventHandler(this.englishToolStripMenuItem_Click);
+			// 
+			// russianToolStripMenuItem
+			// 
+			this.russianToolStripMenuItem.Image = global::NotifyBin.Properties.Resources.russia_flag;
+			this.russianToolStripMenuItem.Name = "russianToolStripMenuItem";
+			this.russianToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.russianToolStripMenuItem.Text = "Russian";
+			this.russianToolStripMenuItem.Click += new System.EventHandler(this.russianToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -217,6 +246,9 @@ namespace NotifyBin
 		private System.Windows.Forms.ToolStripMenuItem DoubleClickAction;
 		private System.Windows.Forms.ToolStripMenuItem openDoubleClickAction;
 		private System.Windows.Forms.ToolStripMenuItem clearDoubleClickAction;
+		private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem russianToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
 	}
 }
 
