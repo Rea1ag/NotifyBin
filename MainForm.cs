@@ -84,7 +84,7 @@ namespace NotifyBin
 		private void GetLanguage()
 		{
 			Language.lang = key.GetValue("Language").ToString();
-			LanguageUI();
+			ControlsLang();
 
 		}
 
@@ -309,7 +309,7 @@ namespace NotifyBin
 		{
 			Language.lang = "ENG";
 			key.SetValue("Language","ENG");
-			LanguageUI();
+			ControlsLang();
 			englishToolStripMenuItem.Checked = true;
 			russianToolStripMenuItem.Checked = false;
 		}
@@ -318,13 +318,13 @@ namespace NotifyBin
 		{
 			Language.lang = "RU";
 			key.SetValue("Language", "RU");
-			LanguageUI();
+			ControlsLang();
 			englishToolStripMenuItem.Checked = false;
 			russianToolStripMenuItem.Checked = true;
 		}
 		//Интерфейс <-- Языковой словарь 
 		//ENG
-		void LanguageUI()
+		void ControlsLang()
 		{
 			openToolStripMenuItem.Text = Language.Translate("Open");
 			clearToolStripMenuItem.Text = Language.Translate("Clear");
