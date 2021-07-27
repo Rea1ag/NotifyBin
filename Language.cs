@@ -19,10 +19,10 @@ namespace NotifyBin
 			}
 			return i;
 		}
-
-		public static Dictionary<string, string> english = new Dictionary<string, string>
+		//ENG
+		public static Dictionary<string, string> english = new Dictionary<string, string>//
 		{
-			//InterfaceUI
+			//Controls
 			["Open"] = "Open",
 			["Clear"] = "Clear",
 			["Settings"] = "Settings",
@@ -47,9 +47,10 @@ namespace NotifyBin
 			["BinClear"] = "Recycle Bin is successfully cleared!",
 			["BinNotClear"] = "Recycle Bin has not been cleared!",
 		};
-
+		//RUS
 		public static Dictionary<string, string> russian = new Dictionary<string, string>
 		{
+			//Controls
 			["Open"] = "Открыть",
 			["Clear"] = "Очистить",
 			["Settings"] = "Настройки",
