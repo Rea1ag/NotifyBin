@@ -73,8 +73,8 @@ namespace NotifyBin
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			GetLanguage(); //Надо пробовать
 			GetRegistryData();
+			GetLanguage(); //Надо пробовать
 			GetNotifyData();
 			timer.Start();
 			HideFromAltTab(this.Handle);//Запуск метода скрывает программу из alt-tab
